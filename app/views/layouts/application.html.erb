@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="<%= "h-full bg-gray-50" if devise_controller? %>">
   <head>
     <title>Buymeabugatti</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,7 +12,7 @@
      
   </head>
 
-  <body>
+  <body class="<%= "h-full" if devise_controller? %>">
     <%= yield %>
   </body>
 </html>
