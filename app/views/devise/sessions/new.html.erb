@@ -1,6 +1,8 @@
 <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <%= link_to root_path do %>
+      <%= image_tag "buymeabugatti-nobg.png", class: "mx-auto h-14 w-auto", "alt": "Buy me a Bugatti" %>
+    <% end %>
     <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Log in to your account</h2>
   </div>
 
@@ -47,7 +49,7 @@
 
     <p class="mt-10 text-center text-sm text-gray-500">
       Not a member?
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
+      <%= link_to "Start a 14 day free trial", new_user_registration_path, class: "link leading-6" %>
     </p>
   </div>
 </div>
