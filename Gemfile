@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '3.2.2'
 
 gem 'devise', '~> 4.9'
+gem 'friendly_id', '~> 5.5.0'
 gem 'jsbundling-rails'
 gem 'money-rails', '~> 1.12'
 gem 'pg', '~> 1.1'
