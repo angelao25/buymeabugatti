@@ -1,0 +1,97 @@
+<div>
+  <div>
+    <div class="flex justify-between sticky top-0 bg-gray-50 ">
+      <div class="text-4xl tracking-wide">
+        <%= @product.name %>
+      </div>
+      <div>
+        <% if @product.published? %>
+          <%= link_to "Unpublish", product_unpublish_path(@product), class: "link", data: { "turbo-method": :put } %>
+        <% else %>
+          <%= link_to "Publish", product_publish_path(@product), class: "link", data: { "turbo-method": :put} %>
+        <% end %>
+        <%= link_to "Save Changes", "", class: "link"  %>
+      </div>
+    </div>
+    <div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Aisha Houston</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <div>
+        <img src="..." />
+        <strong>Andrew Alfred</strong>
+      </div>
+      <!-- ... -->
+    </div>
+
+  </div>
+</div>

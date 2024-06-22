@@ -7,13 +7,15 @@ class ProductsController < ApplicationController
     @product = current_user.products.build
   end
 
-  def show; end
+  def edit
+    @product = Product.friendly.find(params[:id])
+  end
 
   def create
     @product = Product.new(product_params.merge(user: current_user))
 
     if @product.save
-      redirect_to product_path(@product)
+      redirect_to edit_product_path(@product)
     else
       # Error
     end
