@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import {enter, leave, toggle} from "el-transition";
+import { enter, leave, toggle} from "el-transition";
 
 // Connects to data-controller="notification"
 export default class extends Controller {
@@ -10,7 +10,7 @@ export default class extends Controller {
         setTimeout(() => {
           enter(this.element);
         }, 100);
-      }, 500);    
+      }, 500);
 
     // Auto-hide
     setTimeout(() => {

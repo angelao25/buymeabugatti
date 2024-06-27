@@ -26,8 +26,10 @@ class ProductsController < ApplicationController
     @product = Product.friendly.find(params[:id])
 
     if @product.update(product_params)
-      redirect_to edit_product_path
+      flash[:success] = "Product successfully updated."
+      redirect_to edit_product_path(@product)
     else
+      # Error
     end
   end
 
@@ -35,6 +37,6 @@ class ProductsController < ApplicationController
 
   def product_params
     params[:product].delete(:price) if params[:product][:price].to_f.zero?
-    params.require(:product).permit(:name, :price)
+    params.require(:product).permit(:name, :price, :slug)
   end
 end
