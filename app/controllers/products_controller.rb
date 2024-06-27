@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
     @product = current_user.products.build
   end
 
+
   def edit
     @product = Product.friendly.find(params[:id])
   end
@@ -19,6 +20,14 @@ class ProductsController < ApplicationController
       redirect_to edit_product_path(@product)
     else
       # Error
+    end
+  end
+  def update
+    @product = Product.friendly.find(params[:id])
+
+    if @product.update(product_params)
+      redirect_to edit_product_path
+    else
     end
   end
 
