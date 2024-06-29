@@ -12,6 +12,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
 gem 'redis', '>= 4.0.1'
+gem 'ruby-vips'
 gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
@@ -19,7 +20,7 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'view_component'
 
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
