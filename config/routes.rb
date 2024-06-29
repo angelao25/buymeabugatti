@@ -8,8 +8,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'home#index'
+
   get 'dashboard', to: 'dashboard#index'
-  resources :products, only: %i[index new edit create update]
+
+  resources :products, only: %i[index new edit create update] do
+    resources :contents, only: :index, controller: "products/contents"
+  end
 
   scope module: :products, path: :products, as: :product do
     resources :publish, only: :update
