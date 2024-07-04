@@ -37,6 +37,6 @@ class ProductsController < ApplicationController
 
   def product_params
     params[:product].delete(:price) if params[:product][:price].to_f.zero?
-    params.require(:product).permit(:name, :description, :price, :slug, :contents [])
+    params.require(:product).permit(:name, :description, :price, :slug, contents: [])
   end
 end

@@ -9,7 +9,7 @@ class Product < ApplicationRecord
 
   has_rich_text :description
 
-  has_many_attached :content
+  has_many_attached :contents
 
   def draft?
     !published?
