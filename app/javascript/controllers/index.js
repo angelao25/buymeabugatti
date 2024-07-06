@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import FilePickerController from "./file_picker_controller"
+application.register("file-picker", FilePickerController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
