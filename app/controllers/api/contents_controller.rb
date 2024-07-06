@@ -1,6 +1,7 @@
 module Api
   class ContentsController < ApplicationController
-    before_action :authenticate_user!
+    protect_from_forgery with: :null_session
+    # before_action :authenticate_user!
 
     def create
       @content = Content.create(content_params)
@@ -10,7 +11,7 @@ module Api
     private
 
     def content_params
-      params.require(:content).permit(:name )
+      params.require(:content).permit(:name)
     end
   end
 end

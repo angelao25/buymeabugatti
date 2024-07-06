@@ -8,7 +8,7 @@ export default class extends Controller {
     console.log('axios: ', axios);
   }
 
-  open(){
+  open() {
     console.log("open function");
     this.fileInputTarget.click();
 
@@ -16,6 +16,14 @@ export default class extends Controller {
 
   uploadFiles(e) {
     console.log("upload Files: ", Array.from(e.target.files));
-  }
+    console.log('name: ', e.target.files[0].name);
 
+    axios.post('/api/contents', {
+      name: e.target.files[0].name
+    }, {
+      headers: {
+        'ACCEPT': 'application/json'
+      }
+    });
+  }
 }
