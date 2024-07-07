@@ -4,12 +4,17 @@ import axios from "axios";
 // Connects to data-controller="file-picker"
 export default class extends Controller {
   static targets = ["button", "fileInput"]
+
+  HEADERS = {
+    'ACCEPT': 'text/vnd.turbo-stream.html'
+  };
+
+
   connect() {
     console.log('axios: ', axios);
   }
 
   open() {
-    console.log("open function");
     this.fileInputTarget.click();
 
   }
@@ -20,10 +25,7 @@ export default class extends Controller {
 
     axios.post('/api/contents', {
       name: e.target.files[0].name
-    }, {
-      headers: {
-        'ACCEPT': 'application/json'
-      }
-    });
+    }, { headers: this.HEADERS })
+      .then(response => Turbo.renderStreamMessage(response.data));
   }
 }
