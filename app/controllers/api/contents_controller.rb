@@ -5,7 +5,6 @@ module Api
 
     def create
       @content = Content.create(content_params)
-      # render json: ContentSerializer.new(@content).serializable_hash.to_json
 
       respond_to do |format|
         format.turbo_stream
@@ -15,7 +14,7 @@ module Api
     private
 
     def content_params
-      params.require(:content).permit(:name)
+      params.require(:content).permit(:name, :file_type, :file_size)
     end
   end
 end

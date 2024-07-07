@@ -9,11 +9,6 @@ export default class extends Controller {
     'ACCEPT': 'text/vnd.turbo-stream.html'
   };
 
-
-  connect() {
-    console.log('axios: ', axios);
-  }
-
   open() {
     this.fileInputTarget.click();
 
@@ -24,7 +19,9 @@ export default class extends Controller {
     console.log('name: ', e.target.files[0].name);
 
     axios.post('/api/contents', {
-      name: e.target.files[0].name
+      name: e.target.files[0].name,
+      file_size: e.target.files[0].size,
+      file_type: e.target.files[0].type,
     }, { headers: this.HEADERS })
       .then(response => Turbo.renderStreamMessage(response.data));
   }
