@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
 
   resources :products, only: %i[index new edit create update] do
-    resources :contents, only: :index, controller: "products/contents"
+    resources :contents, only: :index, controller: 'products/contents'
   end
 
   scope module: :products, path: :products, as: :product do
@@ -21,6 +21,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :contents, only: :create
+    resources :contents, only: %i[create update]
   end
 end
