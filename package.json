@@ -11,6 +11,7 @@
     "el-transition": "^0.0.7",
     "esbuild": "^0.21.5",
     "postcss": "^8.4.38",
+    "pretty-bytes": "^6.1.1",
     "tailwindcss": "^3.4.4",
     "trix": "^2.1.1"
   },
