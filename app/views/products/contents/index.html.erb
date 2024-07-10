@@ -2,14 +2,16 @@
   <%= render "products/sticky_header", product: @product, form: f %>
 
   <div class="space-y-12 <%= horizontal_padding %>">
-    <div class="<%= 'py-12' if @content&.exists? %>">
+    <div class="py-12">
       <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
-          <%= turbo_frame_tag "uploaded_files" do %>
-            <% @contents.each do |content| %>
-              <%= render UploadedFileComponent.new(content_id: content.id, name: content.name, file_type: content.file_type, file_size: content.file_size) %> 
+          <ul role="list" class="divide-y divide-gray-100 overflow-hidden bg-white sm:rounded-xl">
+            <%= turbo_frame_tag "uploaded_files" do %>
+              <% @contents.each do |content| %>
+                  <%= render UploadedFileComponent.new(content_id: content.id, name: content.name, file_type: content.file_type, file_size: content.file_size) %> 
+              <% end %>
             <% end %>
-          <% end %>
+          </ul>
         </div>
       </div>
     </div>
