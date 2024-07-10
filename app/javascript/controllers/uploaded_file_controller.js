@@ -9,12 +9,11 @@ export default class extends Controller {
   static outlets = ['file-picker'];
 
   connect() {
-    this.filePickerOutlets[0].attachFile(this);
+    this.filePickerOutlet.attachFile(this);
   }
 
   attachFile(attachedFile) {
     file = attachedFile;
-    console.log(file);
   }
 
   uploadFile() {
@@ -32,8 +31,7 @@ export default class extends Controller {
     axios.put(`/api/contents/${this.element.dataset.contentId}`, data, config)
       .then((response) => {
         console.log('uploadFile resopnse: ', response);
-
-      })
+      });
   }
 
   open(e) {

@@ -16,7 +16,7 @@ module Api
       @content.file.attach(content_params[:file])
       respond_to do |format|
         format.json do
-          render json: {}, status: 20
+          render json: {}, status: 200
         end
       end
     end

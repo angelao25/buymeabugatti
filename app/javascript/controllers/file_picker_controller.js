@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import axios from "axios";
 
-const files = [];
+let files = [];
 
 // Connects to data-controller="file-picker"
 export default class extends Controller {
@@ -16,24 +16,26 @@ export default class extends Controller {
   }
 
   attachFile(content) {
-    console.log('content: ', content);
-    content.attachFile(files[0]);
+    const contentId = content.element.dataset.contentId
+    const fileIndex = files.findIndex(file => file.contentId == contentId)
+    content.attachFile(files[fileIndex]);
+    files = files.splice(fileIndex, fileIndex);
     content.uploadFile();
   }
 
   uploadFiles(e) {
-    console.log("upload Files: ", Array.from(e.target.files));
-    console.log('name: ', e.target.files[0].name);
-    files.push(e.target.files[0]);
-
-    axios.post('/api/contents', {
-      name: e.target.files[0].name,
-      file_size: e.target.files[0].size,
-      file_type: e.target.files[0].type,
-    }, { headers: this.HEADERS })
-      .then((response) => {
-        const contentId = response.data.match(/data-content-id=("\d+")/)[1].replace(/"|'/g, '');
-        Turbo.renderStreamMessage(response.data)
-      });
+    Array.from(e.target.files).forEach((file) => {
+      axios.post('/api/contents', {
+        name: file.name,
+        file_size: file.size,
+        file_type: file.type,
+      }, { headers: this.HEADERS })
+        .then((response) => {
+          const contentId = response.data.match(/data-content-id=("\d+")/)[1].replace(/"|'/g, '');
+          file['contentId'] = parseInt(contentId);
+          files.push(file);
+          Turbo.renderStreamMessage(response.data)
+        });
+    });
   }
 }
