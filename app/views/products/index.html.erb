@@ -11,7 +11,7 @@
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-        <table class="min-w-full divide-y divide-gray-300">
+        <table class="min-w-full table-auto divide-y divide-gray-300">
           <thead>
             <tr>
               <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -28,9 +28,13 @@
           <tbody class="divide-y divide-gray-200 bg-white">
             <% @products.each do |product| %>
               <tr>
-                <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                <td class="whitespace-nowrap py-5 px-3 text-sm text-gray-500 mx-auto sm:pl-0 w-0">
                   <div class="h-11 w-11 flex-shrink-0">
-                    <img class="h-11 w-11 rounded-full" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    <% if product.thumbnail.attached? %>
+                      <%= image_tag product.thumbnail.variant(resize_to_fill: [500, 500]) %>
+                    <% else %>
+                      <%= image_tag "gallery.png" %>
+                    <% end %>
                   </div>
                 </td>
                 <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
