@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
 
 export default class extends Controller {
-  static targets = ["thumbnail", "cover", "coverInput", "thumbnailInput"]
+  static targets = ["thumbnail", "coverSection", "coverUploadSection", "cover", "coverInput", "thumbnailInput"]
 
   changeThumbnail(e) {
     e.preventDefault();
@@ -32,7 +32,12 @@ export default class extends Controller {
     }
 
     this.coverInputTarget.files = e.target.files;
+
     this.coverTarget.src = URL.createObjectURL(file)
+
+    this.coverUploadSectionTarget.classList.add('hidden');
+
+    this.coverSectionTarget.classList.remove('hidden');
   }
 
   attachThumbnail(e) {
