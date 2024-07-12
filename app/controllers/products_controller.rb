@@ -2,12 +2,12 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @products = Product.all
   end
 
   def new
     @product = current_user.products.build
   end
-
 
   def edit
     @product = Product.friendly.find(params[:id])
@@ -22,11 +22,12 @@ class ProductsController < ApplicationController
       # Error
     end
   end
+
   def update
     @product = Product.friendly.find(params[:id])
 
     if @product.update(product_params)
-      flash[:success] = "Product successfully updated."
+      flash[:success] = 'Product successfully updated.'
       redirect_to edit_product_path(@product)
     else
       # Error
