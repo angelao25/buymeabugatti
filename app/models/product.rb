@@ -11,6 +11,8 @@ class Product < ApplicationRecord
 
   has_one_attached :thumbnail
 
+  has_one_attached :cover
+
   def draft?
     !published?
   end
