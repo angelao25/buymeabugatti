@@ -64,15 +64,10 @@ export default class extends Controller {
       contents.push(this.buildContentParams(fileComponent));
     });
 
-    console.log("product id: ", productId);
-    console.log("contents array", contents);
-    console.log("submit form");
-
     axios.post(`/products/${productId}/attach_contents/`, {
       contents: contents
+    }).then((response) => {
+      Turbo.visit(`/products/${productId}/edit`);
     });
-
-
-
   }
 }

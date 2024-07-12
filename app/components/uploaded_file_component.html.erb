@@ -2,6 +2,7 @@
   data-controller="uploaded-file"
   data-uploaded-file-file-picker-outlet=".file-picker"
   data-content-id="<%= @content_id %>"
+  data-upload-completed="<%= @upload_completed %>"
   class="uploaded-file-component hover:bg-gray-50 px-4 sm:px-6 py-5 border"
   >
   <div class="relative flex justify-between gap-x-6"> 
@@ -25,7 +26,7 @@
               data-file-size="<%= number_to_human_size(@file_size) %>"
           ></span>
           <span 
-              class="hidden"
+              class="<%= "hidden" unless @upload_completed %>"
               data-uploaded-file-target="metadata"
           >
             <%= @file_type.match(/\/(.+)/)[1].upcase %> &middot; <%= number_to_human_size(@file_size) %></p>

@@ -22,6 +22,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :contents, only: %i[create update]
+    resources :contents, only: %i[create update destroy]
   end
 end

@@ -10,7 +10,9 @@ export default class extends Controller {
   static outlets = ['file-picker'];
 
   connect() {
-    this.filePickerOutlet.attachFile(this);
+    if (this.element.dataset.uploadCompleted != "true") {
+      this.filePickerOutlet.attachFile(this);
+    }
   }
 
   attachFile(attachedFile) {
@@ -20,6 +22,8 @@ export default class extends Controller {
   uploadProgressText(percentCompleted, uploadRate) {
     const totalFileSize = this.uploadProgressTarget.dataset.fileSize;
     const fileType = this.uploadProgressTarget.dataset.fileType;
+    console.log('uploadRate: ', uploadRate);
+    if (uploadRate == undefined) return;
 
     return `${fileType} · ${percentCompleted}% of ${totalFileSize} (${prettyBytes(uploadRate).toUpperCase()}/ second)`;
 
@@ -30,10 +34,8 @@ export default class extends Controller {
       onUploadProgress: (progressEvent) => {
         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
         // console.log('progressEvent: ', progressEvent);
-        console.log('percentCompleted: ', percentCompleted);
         this.uploadProgressTarget.classList.remove('hidden');
         this.metadataTarget.classList.add('hidden');
-
         this.uploadProgressTarget.textContent = this.uploadProgressText(percentCompleted, progressEvent.rate);
       },
       headers: { 'ACCEPT': 'application/json' }
@@ -65,6 +67,9 @@ export default class extends Controller {
 
   delete(e) {
     e.preventDefault();
-    this.element.remove();
+    axios.delete(`/api/contents/${this.element.dataset.contentId}`, { headers: { 'ACCEPT': 'application/json' } })
+      .then(() => {
+        this.element.remove();
+      });
   }
 }

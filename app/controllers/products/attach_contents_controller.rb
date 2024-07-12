@@ -15,7 +15,12 @@ module Products
         @contents << content
       end
       @contents.each(&:save)
-      redirect_to product_path(@product)
+      flash[:success] = 'Files successfully uploaded'
+      redirect_to edit_product_path(@product)
+    end
+
+    def destroy
+      @product = Product.friendly.find(params[:product_id])
     end
 
     private
