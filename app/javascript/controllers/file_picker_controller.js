@@ -1,7 +1,11 @@
 import { Controller } from "@hotwired/stimulus";
 import axios from "axios";
+import { post } from "@rails/request.js";
 
 let files = [];
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 
 // Connects to data-controller="file-picker"
 export default class extends Controller {
@@ -26,9 +30,11 @@ export default class extends Controller {
   uploadFiles(e) {
     Array.from(e.target.files).forEach((file) => {
       axios.post('/api/contents', {
-        name: file.name,
-        file_size: file.size,
-        file_type: file.type,
+        content: {
+          name: file.name,
+          file_size: file.size,
+          file_type: file.type,
+        }
       }, { headers: this.HEADERS })
         .then((response) => {
           const contentId = response.data.match(/data-content-id=("\d+")/)[1].replace(/"|'/g, '');
@@ -47,6 +53,10 @@ export default class extends Controller {
     const contentId = parseInt(fileComponent.dataset.contentId);
     const name = fileComponent.querySelector('input[name="name"]').value;
     const description = fileComponent.querySelector('input[name="description"]').value;
+    const contentParam = new FormData();
+    contentParam.append('id', contentId);
+    contentParam.append('name', name);
+    contentParam.append('description', description);
     return {
       id: contentId,
       name: name,
@@ -55,7 +65,7 @@ export default class extends Controller {
   }
 
 
-  submitForm(e) {
+  async submitForm(e) {
     e.preventDefault();
     const productId = this.element.dataset.productId;
     const contents = [];
@@ -64,10 +74,10 @@ export default class extends Controller {
       contents.push(this.buildContentParams(fileComponent));
     });
 
-    axios.post(`/products/${productId}/attach_contents/`, {
-      contents: contents
-    }).then((response) => {
+    const response = await post(`/products/${productId}/attach_contents/`, { body: { contents: contents }, responseKind: "turbo-stream" });
+
+    if (response.ok) {
       Turbo.visit(`/products/${productId}/edit`);
-    });
+    }
   }
 }

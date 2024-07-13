@@ -15,8 +15,11 @@ module Products
         @contents << content
       end
       @contents.each(&:save)
-      flash[:success] = 'Files successfully uploaded'
-      redirect_to edit_product_path(@product)
+      respond_to do |format|
+        format.turbo_stream do
+          flash[:success] = 'Files successfully uploaded'
+        end
+      end
     end
 
     def destroy

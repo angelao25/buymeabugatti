@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import axios from 'axios';
 import prettyBytes from 'pretty-bytes';
+import { destroy } from '@rails/request.js'
 
 let file = null;
 
@@ -30,15 +31,16 @@ export default class extends Controller {
   }
 
   uploadFile() {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    console.log('token: ', csrfToken);
     const config = {
       onUploadProgress: (progressEvent) => {
         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        // console.log('progressEvent: ', progressEvent);
         this.uploadProgressTarget.classList.remove('hidden');
         this.metadataTarget.classList.add('hidden');
         this.uploadProgressTarget.textContent = this.uploadProgressText(percentCompleted, progressEvent.rate);
       },
-      headers: { 'ACCEPT': 'application/json' }
+      headers: { 'ACCEPT': 'application/json', 'X-CSRF-Token': csrfToken }
     };
     const data = new FormData();
     data.append('content[file]', file);
@@ -65,11 +67,17 @@ export default class extends Controller {
     this.formTarget.classList.add("hidden");
   }
 
-  delete(e) {
+  async delete(e) {
     e.preventDefault();
-    axios.delete(`/api/contents/${this.element.dataset.contentId}`, { headers: { 'ACCEPT': 'application/json' } })
-      .then(() => {
-        this.element.remove();
-      });
+    // axios.delete(`/api/contents/${this.element.dataset.contentId}`, { headers: { 'ACCEPT': 'application/json' } })
+    //   .then(() => {
+    //     this.element.remove();
+    //   });
+
+    const response = await destroy(`/api/contents/${this.element.dataset.contentId}`, { headers: { 'ACCEPT': 'application/json' } });
+
+    if (response.ok) {
+      this.element.remove();
+    }
   }
 }
