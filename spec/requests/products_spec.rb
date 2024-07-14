@@ -17,8 +17,16 @@ RSpec.describe 'Products', type: :request do
     end
   end
 
-  describe "GET edit" do
-    it "succeeds" do
+  describe 'GET show' do
+    it 'succeeds' do
+      product = create(:product)
+      get product_path(product)
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe 'GET edit' do
+    it 'succeeds' do
       product = create(:product)
       get edit_product_path(product)
       expect(response).to have_http_status(:success)
@@ -55,15 +63,15 @@ RSpec.describe 'Products', type: :request do
   end
 
   describe 'PUT update' do
-    it "succeeds" do
+    it 'succeeds' do
       product = create(:product)
       expect do
         put product_path(product), params: {
           product: {
-            name: "foo"
+            name: 'foo'
           }
         }
-      end.to change { product.reload.name }.to("foo")
+      end.to change { product.reload.name }.to('foo')
 
       expect(response).to redirect_to(edit_product_path)
     end

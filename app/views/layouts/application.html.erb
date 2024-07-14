@@ -15,13 +15,18 @@
 
   <body class="<%= "h-full" if devise_controller? || user_signed_in? %>">
     <% if user_signed_in? %>
-      <div>
-        <%= render "layouts/sidenav" %>
-        <main class="py-10 lg:pl-72">
+      <%# This a temporary solutioc%>
+      <% if controller_name == "products" && action_name == "show" %>
+        <%= yield %>
+      <% else %>
+        <div>
+          <%= render "layouts/sidenav" %>
+          <main class="py-10 lg:pl-72">
             <!-- Your content -->
             <%= yield %>
-        </main>
-      </div>
+          </main>
+        </div>
+      <% end %>
     <% else %>
       <%= yield %>
     <% end %>

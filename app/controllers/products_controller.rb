@@ -23,6 +23,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show
+    @product = Product.friendly.find(params[:id])
+  end
+
   def update
     @product = Product.friendly.find(params[:id])
 

@@ -1,0 +1,16 @@
+<div class="mx-auto container <%= horizontal_padding %>">
+  <%= image_tag @product.cover, class: "block" %>
+  <div class="grid grid-cols-3">
+    <div class="col-span-2">
+      <h1 class="text-4xl tracking-wide"><%= @product.name %></h1>
+      <p><%= humanized_money_with_symbol(@product.price) %> | <%= @product.user.email %></p>
+      <div>
+        <%= @product.description %>
+      </div>
+    </div>
+    <div class="col-span-1">
+      <%= button_tag "I want this!" %>
+      <%= number_to_human_size(@product.contents.pluck(:file_size).sum) %>
+    </div>
+  </div>
+</div>
