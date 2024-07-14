@@ -2,14 +2,13 @@
     <div class="flex justify-between">
       <div class="text-4xl tracking-wide"><%= product.name %></div>
       <div>
-        <% if product.published? %>
-          <%= link_to "Unpublish", product_unpublish_path(product), class: "rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50", data: { "turbo-method": :put } %>
-        <% else %>
-          <%= link_to "Publish", product_publish_path(product), class: "rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50", data: { "turbo-method": :put} %>
+        <%= turbo_frame_tag "publish-button" do %>
+          <%= render "products/publish_button", product: product %>
         <% end %>
         <%= form.submit "Save Changes", class: "cursor-pointer rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"  %>
       </div>
     </div>
+
     <div class="flex justify-start mt-10">
       <div class=""><%= link_to "Product", edit_product_path(product), class: controller_name == "products" ? active_tab_class : inactive_tab_class %></div>
       <div class="ml-4"><%= link_to "Content", product_contents_path(product), class: controller_name == "contents" ? active_tab_class : inactive_tab_class %></div>

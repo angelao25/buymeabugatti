@@ -34,7 +34,7 @@
         <div class="sm:col-span-6 border-b border-black pb-8">
           <%= f.file_field :cover, data: { "product-form-target": "coverInput", action: "change->product-form#attachCover" }, class: "hidden" %>
           <%= f.label :cover, class: "block text-sm font-medium leading-6 text-gray-900" %>
-          <div data-product-form-target="coverSection" class="<%= hidden unless @product.cover.attached? %>"> 
+          <div data-product-form-target="coverSection" class="<%= "hidden" unless @product.cover.attached? %>"> 
             <%= link_to "Change cover", "", class: "cursor-pointer font-semibold text-indigo-600 hover:text-indigo-500", data: { action: "product-form#changeCover" } %>
             <% if @product.cover.attached? %>
               <%= image_tag @product.cover.variant(resize_to_fill: [1280, 720]), data: {"product-form-target": "cover"} %>

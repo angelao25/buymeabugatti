@@ -9,9 +9,9 @@ RSpec.describe 'Products::Unpublish', type: :request do
     it 'successfully unpublishes the product' do
       product = create(:product, published: true)
       expect do
-        put product_unpublish_path(product)
+        put product_unpublish_path(product), headers: { ACCEPT: "text/vnd.turbo-stream.html" }
       end.to change { product.reload.published? }.from(true).to(false)
-      expect(response).to redirect_to edit_product_path(product)
+      expect(response).to have_http_status(:success) 
     end
   end
 end
